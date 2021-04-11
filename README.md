@@ -147,3 +147,33 @@ Message placement within a QR symbol. The message is encoded using a (255,249) R
 Larger symbol illustrating interleaved blocks. The message has 26 data bytes and is encoded using two Reed-Solomon code blocks. Each block is a (255,233) Reed Solomon code (shortened to (35,13) code), which can correct up to 11 byte errors in a single burst, containing 13 data bytes and 22 "parity" bytes appended to the data bytes. The two 35-byte Reed-Solomon code blocks are interleaved so it can correct up to 22 byte errors in a single burst (resulting in a total of 70 code bytes). The symbol achieves level H error correction
 
 The general structure of a QR encoding is as a sequence of 4 bit indicators with payload length dependent on the indicator mode (e.g. byte encoding payload length is dependent on the first byte).
+
+The general structure of a QR encoding is as a sequence of 4 bit indicators with payload length dependent on the indicator mode (e.g. byte encoding payload length is dependent on the first byte).
+
+![](https://github.com/aridiosilva/qrcodeproject/blob/main/img/generic_structure_qr_code_mode_indicator.jpg)
+
+Four-bit indicators are used to select the encoding mode and convey other information.
+
+![](https://github.com/aridiosilva/qrcodeproject/blob/main/img/generic_structure_qr_code_econding_modes.jpg)
+
+Encoding modes can be mixed as needed within a QR symbol. (e.g., a url with a long string of alphanumeric characters )
+
+```
+[ Mode Indicator][ Mode bitstream ] --> [ Mode Indicator][ Mode bitstream ] --> etc... --> [ 0000 End of message (Terminator) ]
+```
+
+After every indicator that selects an encoding mode is a length field that tells how many characters are encoded in that mode. The number of bits in the length field depends on the encoding and the symbol version.
+
+![](https://github.com/aridiosilva/qrcodeproject/blob/main/img
+
+  Alphanumeric encoding mode stores a message more compactly than the byte mode can, but cannot store lower-case letters and has only a limited selection of punctuation marks, which are sufficient for rudimentary web addresses. Two characters are coded in an 11-bit value by this formula:
+
+  ```
+  V = 45 × C1 + C2
+  ```
+
+  This has the exception that the last character in an alphanumeric string with an odd length is read as a 6-bit value instead.
+
+  ![](https://github.com/aridiosilva/qrcodeproject/blob/main/img/generic_structure_qr_code_alphanumeric_char_codes.jpg)
+
+  
