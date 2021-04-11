@@ -17,12 +17,14 @@ The Quick Response system became popular outside the automotive industry due to 
  - Its purpose was to track vehicles during manufacturing; it was designed to allow high-speed component scanning.
  - QR codes are now used in a much broader context, including both commercial tracking applications and convenience-oriented applications aimed at mobile-phone users (termed mobile tagging).
  - QR codes may be used to:
-     -- to display text to the user,
-     -- to open a webpage on the user's device,
-     -- to add a vCard contact to the user's device,
-     -- to open a Uniform Resource Identifier (URI),
-     -- to connect to a wireless network, or
-     -- to compose an email or text message.
+
+    > -- to display text to the user,
+    > -- to open a webpage on the user's device,
+    > -- to add a vCard contact to the user's device,
+    > -- to open a Uniform Resource Identifier (URI),
+    > -- to connect to a wireless network, or
+    > -- to compose an email or text message.
+
  - There are a great many QR code generators available as software or as online tools that are either free, or require a paid subscription.
  - The QR code has become one of the most-used types of two-dimensional code.
 
