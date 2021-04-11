@@ -61,9 +61,9 @@ Indicates the revision of the QR Code standard. (The word model here corresponds
 
 Structure of a QR code (version 7), highlighting functional elements There are several standards that cover the encoding of data as QR codes:
 
-1 - October 1997 – AIM (Association for Automatic Identification and Mobility) International -
-1 - January 1999 – JIS X 0510
-1 - June 2000 – ISO/IEC 18004:2000 Information technology – Automatic identification and data capture techniques – Bar code symbology – QR code (now withdrawn) -
+ - October 1997 – **AIM (Association for Automatic Identification and Mobility) International**
+ - January 1999 – **JIS X 0510**
+ - June 2000 – **ISO/IEC 18004:2000 Information technology** – Automatic identification and data capture techniques – Bar code symbology – QR code (now withdrawn) -
 Defines QR code models 1 and 2 symbols.
-1 - September 2006 – ISO/IEC 18004:2006 Information technology – Automatic identification and data capture techniques – QR code 2005 bar code symbology specification (now withdrawn) - Defines QR code 2005 symbols, an extension of QR code model 2. Does not specify how to read QR code model 1 symbols, or require this for compliance.
-1 - February 2015 – ISO/IEC 18004:2015 Information – Automatic identification and data capture techniques – QR Code barcode symbology specification Renames the QR Code 2005 symbol to QR Code and adds clarification to some procedures and minor corrections. At the application layer, there is some variation between most of the implementations. Japan's NTT DoCoMo has established de facto standards for the encoding of URLs, contact information, and several other data types.[13] The open-source "ZXing" project maintains a list of QR code data types.[14]
+ - September 2006 – **ISO/IEC 18004:2006 Information technology** – Automatic identification and data capture techniques – QR code 2005 bar code symbology specification (now withdrawn). Defines QR code 2005 symbols, an extension of QR code model 2. Does not specify how to read QR code model 1 symbols, or require this for compliance.
+ - February 2015 – **ISO/IEC 18004:2015 Information** – Automatic identification and data capture techniques – QR Code barcode symbology specification Renames the QR Code 2005 symbol to QR Code and adds clarification to some procedures and minor corrections. At the application layer, there is some variation between most of the implementations. Japan's NTT DoCoMo has established de facto standards for the encoding of URLs, contact information, and several other data types. The open-source "ZXing" project maintains a list of QR code data types.
