@@ -75,3 +75,13 @@ Defines QR code models 1 and 2 symbols.
 Highlighting functional elements:
 
 ![Sctructure of QR Code](https://github.com/aridiosilva/qrcodeproject/blob/main/img/600px-QR_Code_Structure_Example_3.svg.png)
+
+## Risks
+
+The only context in which common QR codes can carry executable data is the URL data type. These URLs may host JavaScript code, which can be used to exploit vulnerabilities in applications on the host system, such as the reader, the web browser or the image viewer, since a reader will typically send the data to the application associated with the data type used by the QR code.
+
+In the case of no software exploits, malicious QR codes combined with a permissive reader can still put a computer's contents and user's privacy at risk. This practice is known as "attagging", a portmanteau of "attack tagging".[94] They are easily created and can be affixed over legitimate QR codes.[95] On a smartphone, the reader's permissions may allow use of the camera, full Internet access, read/write contact data, GPS, read browser history, read/write local storage, and global system changes.
+
+Risks include linking to dangerous web sites with browser exploits, enabling the microphone/camera/GPS, and then streaming those feeds to a remote server, analysis of sensitive data (passwords, files, contacts, transactions),[99] and sending email/SMS/IM messages or DDOS packets as part of a botnet, corrupting privacy settings, stealing identity,[100] and even containing malicious logic themselves such as JavaScript[101] or a virus. These actions could occur in the background while the user is only seeing the reader opening a seemingly harmless web page.[104] In Russia, a malicious QR code caused phones that scanned it to send premium texts at a fee of US$6 each.
+
+-
