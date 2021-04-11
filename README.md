@@ -1,5 +1,23 @@
 # QR Code Project
 
+This project aims to be Code to genenrate QR Codes.
+
+## More Info
+
+- [Wikipedia: QR code](https://en.wikipedia.org/wiki/QR_code)
+- [QRcode.com by Denso Wave](https://www.qrcode.com/en/)
+- [ISO/IEC 18004:2006 – QR Code 2005 bar code symbology specification (recommended)](https://web.archive.org/web/20140630004133/https://www.codeplex.com/Download?ProjectName=qrcodenet&DownloadId=321409)
+- [ISO/IEC 18004:2000 – Bar code symbology – QR Code (old standard)](https://web.archive.org/web/20140630152807/http://www.codeplex.com/Download?ProjectName=qrcodenet&DownloadId=284291)
+- [Thonky.com: QR Code Tutorial](https://www.thonky.com/qr-code-tutorial/)
+
+## Additional Info to browse
+
+- [Creating a QR Code step by step](https://www.nayuki.io/page/creating-a-qr-code-step-by-step)
+- [Optimal text segmentation for QR Codes](https://www.nayuki.io/page/optimal-text-segmentation-for-qr-codes)
+- [Fast QR Code generator library](https://www.nayuki.io/page/fast-qr-code-generator-library)
+- [1D barcode generator (JavaScript)](https://www.nayuki.io/page/1d-barcode-generator-javascript)
+- [Absolute and relative lens apertures](https://www.nayuki.io/page/absolute-and-relative-lens-apertures)
+
 ## What does Mean QR CODE and its Origin
 
 A QR code (abbreviated from Quick Response code) is a type of matrix barcode (or two-dimensional barcode) first designed in 1994 for the automotive industry in Japan.
