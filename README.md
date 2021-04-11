@@ -112,24 +112,34 @@ The amount of data that can be stored in the QR code symbol depends on the datat
 
 ## (2) Error correction
 
-QR codes use Reed–Solomon error correction over the finite field {\displaystyle \mathbb {F} _{256}}{\displaystyle \mathbb {F} _{256}}, the elements of which are encoded as bytes of 8 bits; the byte {\displaystyle b_{7}b_{6}b_{5}b_{4}b_{3}b_{2}b_{1}b_{0}}{\displaystyle b_{7}b_{6}b_{5}b_{4}b_{3}b_{2}b_{1}b_{0}} with a standard numerical value {\displaystyle \textstyle \sum _{i=0}^{7}b_{i}2^{i}}{\displaystyle \textstyle \sum _{i=0}^{7}b_{i}2^{i}} encodes the field element {\displaystyle \textstyle \sum _{i=0}^{7}b_{i}\alpha ^{i}}{\displaystyle \textstyle \sum _{i=0}^{7}b_{i}\alpha ^{i}} where {\displaystyle \alpha \in \mathbb {F} _{256}}{\displaystyle \alpha \in \mathbb {F} _{256}} is taken to be a primitive element satisfying {\displaystyle \alpha ^{8}+\alpha ^{4}+\alpha ^{3}+\alpha ^{2}+1=0}{\displaystyle \alpha ^{8}+\alpha ^{4}+\alpha ^{3}+\alpha ^{2}+1=0}. The Reed–Solomon code uses one of 37 different polynomials over {\displaystyle \mathbb {F} _{256}}{\displaystyle \mathbb {F} _{256}}, with degrees ranging from 7 to 68, depending on how many error correction bytes the code adds. It is implied by the form of Reed–Solomon used (systematic BCH view) that these polynomials are all on the form {\textstyle \prod _{i=0}^{n-1}(x-\alpha ^{i})}{\textstyle \prod _{i=0}^{n-1}(x-\alpha ^{i})}, however the rules for selecting the degree {\displaystyle n}n are specific to the QR standard.
+QR Code has error correction capability to restore data if the code is dirty or damaged.
 
-When discussing the Reed–Solomon code phase there is some risk for confusion, in that the QR ISO standard uses the term codeword for the elements of {\displaystyle \mathbb {F} _{256}}{\displaystyle \mathbb {F} _{256}}, which respect to the Reed–Solomon code are symbols, whereas it uses the term block for what with respect to the Reed–Solomon code are the codewords. The number of data versus error correction bytes within each block depends on (i) the version (side length) of the QR symbol and (ii) the error correction level, of which there are four. The higher the error correction level, the less storage capacity. The following table lists the approximate error correction capability at each of the four levels:
+Four error correction levels are available for users to choose according to the operating environment. Raising this level improves error correction capability but also increases the amount of data QR Code size.
 
 - Level L (Low)	7% of data bytes can be restored.
 - Level M (Medium)	15% of data bytes can be restored.
 - Level Q (Quartile)[66]	25% of data bytes can be restored.
 - Level H (High)	30% of data bytes can be restored.
 
+To select error correction level, various factors such as the operating environment and QR Code size need to be considered. Level Q or H may be selected for factory environment where QR Code get dirty, whereas Level L may be selected for clean environment with the large amount of data. Typically, Level M (15%) is most frequently selected.
+
+The QR Code error correction feature is implemented by adding a Reed-Solomon Code to the original data.
+
+The error correction capability depends on the amount of data to be corrected. For example, if there are 100 codewords of QR Code to be encoded,50 of which need to be corrected, 100 codewords of Reed-Solomon Code are required, as Reed-Solomon Code requires twice the amount of codewords to be corrected. In this case, the total codewords are 200, 50 of which can be corrected. Thus, the error correction rate for the total codewords is 25%. This corresponds to QR Code error correction Level Q.
+
+In the example above, the error correction rate for QR Code codewords can be considered as 50%. However, it is not always the case that codewords of not Reed-Solomon Code but only QR Code are susceptible to dirt and damage.QR Code therefore represents its error correction rate as a ratio of the total codewords.
+
+When discussing the Reed–Solomon code phase there is some risk for confusion, in that the QR ISO standard uses the term codeword for the elements of F256, which respect to the Reed–Solomon code are symbols, whereas it uses the term block for what with respect to the Reed–Solomon code are the codewords. The number of data versus error correction bytes within each block depends on (i) the version (side length) of the QR symbol and (ii) the error correction level, of which there are four. The higher the error correction level, the less storage capacity. The following table lists the approximate error correction capability at each of the four levels:
+
 In larger QR symbols, the message is broken up into several Reed–Solomon code blocks. The block size is chosen so that no attempt is made at correcting more than 15 errors per block; this limits the complexity of the decoding algorithm. The code blocks are then interleaved together, making it less likely that localized damage to a QR symbol will overwhelm the capacity of any single block.
 
-Due to error correction, it is possible to create artistic QR codes that still scan correctly, but contain intentional errors to make them more readable or attractive to the human eye, as well as to incorporate colors, logos, and other features into the QR code block.[67][68]
+Due to error correction, it is possible to create artistic QR codes that still scan correctly, but contain intentional errors to make them more readable or attractive to the human eye, as well as to incorporate colors, logos, and other features into the QR code block.
 
-It is also possible to design artistic QR codes without reducing the error correction capacity by manipulating the underlying mathematical constructs.[69][70] Also uses of image processing algorithms are used to reduce errors in QR-code.[71]
+It is also possible to design artistic QR codes without reducing the error correction capacity by manipulating the underlying mathematical constructs. Also uses of image processing algorithms are used to reduce errors in QR-code.
 
 ## (3) Encoding
 
-The format information records two things: the error correction level and the mask pattern used for the symbol. Masking is used to break up patterns in the data area that might confuse a scanner, such as large blank areas or misleading features that look like the locator marks. The mask patterns are defined on a grid that is repeated as necessary to cover the whole symbol. Modules corresponding to the dark areas of the mask are inverted. The format information is protected from errors with a BCH code, and two complete copies are included in each QR symbol.[2]
+The format information records two things: the error correction level and the mask pattern used for the symbol. Masking is used to break up patterns in the data area that might confuse a scanner, such as large blank areas or misleading features that look like the locator marks. The mask patterns are defined on a grid that is repeated as necessary to cover the whole symbol. Modules corresponding to the dark areas of the mask are inverted. The format information is protected from errors with a BCH code, and two complete copies are included in each QR symbol.
 
 The message dataset is placed from right to left in a zigzag pattern, as shown below. In larger symbols, this is complicated by the presence of the alignment patterns and the use of multiple interleaved error-correction blocks.
 
@@ -175,5 +185,3 @@ After every indicator that selects an encoding mode is a length field that tells
   This has the exception that the last character in an alphanumeric string with an odd length is read as a 6-bit value instead.
 
   ![](https://github.com/aridiosilva/qrcodeproject/blob/main/img/generic_structure_qr_code_alphanumeric_char_codes.jpg)
-
-  
