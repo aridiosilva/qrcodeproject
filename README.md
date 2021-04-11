@@ -74,4 +74,4 @@ Defines QR code models 1 and 2 symbols.
 
 Highlighting functional elements:
 
-![https://github.com/aridiosilva/qrcodeproject/blob/main/img/600px-QR_Code_Structure_Example_3.svg.png]
+[]([https://github.com/aridiosilva/qrcodeproject/blob/main/img/600px-QR_Code_Structure_Example_3.svg.png)
