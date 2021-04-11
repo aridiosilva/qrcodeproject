@@ -83,8 +83,8 @@ There are several standards that cover the encoding of data as QR codes:
  - **January 1999 – JIS X 0510**
  - **June 2000 – ISO/IEC 18004:2000 Information technology** – Automatic identification and data capture techniques – Bar code symbology – QR code (now withdrawn) -
 Defines QR code models 1 and 2 symbols.
- - **September 2006 – ISO/IEC 18004:2006 Information technology** – Automatic identification and data capture techniques – QR code 2005 bar code symbology specification (now withdrawn). Defines QR code 2005 symbols, an extension of QR code model 2. Does not specify how to read QR code model 1 symbols, or require this for compliance.
- - **February 2015 – ISO/IEC 18004:2015 Information** – Automatic identification and data capture techniques – QR Code barcode symbology specification Renames the QR Code 2005 symbol to QR Code and adds clarification to some procedures and minor corrections.
+ - **[September 2006 – ISO/IEC 18004:2006 Information technology](http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=43655)** – Automatic identification and data capture techniques – QR code 2005 bar code symbology specification (now withdrawn). Defines QR code 2005 symbols, an extension of QR code model 2. Does not specify how to read QR code model 1 symbols, or require this for compliance.
+ - **[February 2015 – ISO/IEC 18004:2015 Information](https://www.iso.org/standard/62021.html)** – Automatic identification and data capture techniques – QR Code barcode symbology specification Renames the QR Code 2005 symbol to QR Code and adds clarification to some procedures and minor corrections.
 
  At the application layer, there is some variation between most of the implementations. **Japan's NTT DoCoMo** has established de facto standards for the encoding of URLs, contact information, and several other data types. The **open-source "ZXing" project** maintains a list of QR code data types.
 
@@ -102,4 +102,48 @@ In the case of no software exploits, malicious QR codes combined with a permissi
 
 Risks include linking to dangerous web sites with browser exploits, enabling the microphone/camera/GPS, and then streaming those feeds to a remote server, analysis of sensitive data (passwords, files, contacts, transactions), and sending email/SMS/IM messages or DDOS packets as part of a botnet, corrupting privacy settings, stealing identity, and even containing malicious logic themselves such as JavaScript or a virus. These actions could occur in the background while the user is only seeing the reader opening a seemingly harmless web page. In Russia, a malicious QR code caused phones that scanned it to send premium texts at a fee of US$6 each.
 
--
+# Design
+
+Unlike the older, one-dimensional barcodes that were designed to be mechanically scanned by a narrow beam of light, a QR code is detected by a 2-dimensional digital image sensor and then digitally analyzed by a programmed processor. The processor locates the three distinctive squares at the corners of the QR code image, using a smaller square (or multiple squares) near the fourth corner to normalize the image for size, orientation, and angle of viewing. The small dots throughout the QR code are then converted to binary numbers and validated with an error-correcting algorithm.
+
+## (1) Storage
+
+The amount of data that can be stored in the QR code symbol depends on the datatype (mode, or input character set), version (1, ..., 40, indicating the overall dimensions of the symbol, i.e. 4 × version number + 17 dots on each side), and error correction level. The maximum storage capacities occur for version 40 and error correction level L (low), denoted by 40-L:[7][65]
+
+## (2) Error correction
+
+QR codes use Reed–Solomon error correction over the finite field {\displaystyle \mathbb {F} _{256}}{\displaystyle \mathbb {F} _{256}}, the elements of which are encoded as bytes of 8 bits; the byte {\displaystyle b_{7}b_{6}b_{5}b_{4}b_{3}b_{2}b_{1}b_{0}}{\displaystyle b_{7}b_{6}b_{5}b_{4}b_{3}b_{2}b_{1}b_{0}} with a standard numerical value {\displaystyle \textstyle \sum _{i=0}^{7}b_{i}2^{i}}{\displaystyle \textstyle \sum _{i=0}^{7}b_{i}2^{i}} encodes the field element {\displaystyle \textstyle \sum _{i=0}^{7}b_{i}\alpha ^{i}}{\displaystyle \textstyle \sum _{i=0}^{7}b_{i}\alpha ^{i}} where {\displaystyle \alpha \in \mathbb {F} _{256}}{\displaystyle \alpha \in \mathbb {F} _{256}} is taken to be a primitive element satisfying {\displaystyle \alpha ^{8}+\alpha ^{4}+\alpha ^{3}+\alpha ^{2}+1=0}{\displaystyle \alpha ^{8}+\alpha ^{4}+\alpha ^{3}+\alpha ^{2}+1=0}. The Reed–Solomon code uses one of 37 different polynomials over {\displaystyle \mathbb {F} _{256}}{\displaystyle \mathbb {F} _{256}}, with degrees ranging from 7 to 68, depending on how many error correction bytes the code adds. It is implied by the form of Reed–Solomon used (systematic BCH view) that these polynomials are all on the form {\textstyle \prod _{i=0}^{n-1}(x-\alpha ^{i})}{\textstyle \prod _{i=0}^{n-1}(x-\alpha ^{i})}, however the rules for selecting the degree {\displaystyle n}n are specific to the QR standard.
+
+When discussing the Reed–Solomon code phase there is some risk for confusion, in that the QR ISO standard uses the term codeword for the elements of {\displaystyle \mathbb {F} _{256}}{\displaystyle \mathbb {F} _{256}}, which respect to the Reed–Solomon code are symbols, whereas it uses the term block for what with respect to the Reed–Solomon code are the codewords. The number of data versus error correction bytes within each block depends on (i) the version (side length) of the QR symbol and (ii) the error correction level, of which there are four. The higher the error correction level, the less storage capacity. The following table lists the approximate error correction capability at each of the four levels:
+
+- Level L (Low)	7% of data bytes can be restored.
+- Level M (Medium)	15% of data bytes can be restored.
+- Level Q (Quartile)[66]	25% of data bytes can be restored.
+- Level H (High)	30% of data bytes can be restored.
+
+In larger QR symbols, the message is broken up into several Reed–Solomon code blocks. The block size is chosen so that no attempt is made at correcting more than 15 errors per block; this limits the complexity of the decoding algorithm. The code blocks are then interleaved together, making it less likely that localized damage to a QR symbol will overwhelm the capacity of any single block.
+
+Due to error correction, it is possible to create artistic QR codes that still scan correctly, but contain intentional errors to make them more readable or attractive to the human eye, as well as to incorporate colors, logos, and other features into the QR code block.[67][68]
+
+It is also possible to design artistic QR codes without reducing the error correction capacity by manipulating the underlying mathematical constructs.[69][70] Also uses of image processing algorithms are used to reduce errors in QR-code.[71]
+
+## (3) Encoding
+
+The format information records two things: the error correction level and the mask pattern used for the symbol. Masking is used to break up patterns in the data area that might confuse a scanner, such as large blank areas or misleading features that look like the locator marks. The mask patterns are defined on a grid that is repeated as necessary to cover the whole symbol. Modules corresponding to the dark areas of the mask are inverted. The format information is protected from errors with a BCH code, and two complete copies are included in each QR symbol.[2]
+
+The message dataset is placed from right to left in a zigzag pattern, as shown below. In larger symbols, this is complicated by the presence of the alignment patterns and the use of multiple interleaved error-correction blocks.
+
+![](https://github.com/aridiosilva/qrcodeproject/blob/main/img/420px-QR_Format_Information.svg.png)
+
+
+Meaning of format information. In the above figure, the format information is protected by a (15,5) BCH code, which can correct up to 3 bit errors. The total length of the code is 15 bits, of which 5 are data bits (2 EC level + 3 mask pattern) and 10 are extra bits for error correction. The format mask for these 15 bits is: [101011001010101]. Note that we map the masked values directly to its meaning here
+
+![](https://github.com/aridiosilva/qrcodeproject/blob/main/img/420px-QR_Character_Placement.svg.png)
+
+Message placement within a QR symbol. The message is encoded using a (255,249) Reed Solomon code (shortened to (24,18) code by using "padding") which can correct up to 3 byte errors.
+
+![](https://github.com/aridiosilva/qrcodeproject/blob/main/img/420px-QR_Ver3_Codeword_Ordering.svg.png)
+
+Larger symbol illustrating interleaved blocks. The message has 26 data bytes and is encoded using two Reed-Solomon code blocks. Each block is a (255,233) Reed Solomon code (shortened to (35,13) code), which can correct up to 11 byte errors in a single burst, containing 13 data bytes and 22 "parity" bytes appended to the data bytes. The two 35-byte Reed-Solomon code blocks are interleaved so it can correct up to 22 byte errors in a single burst (resulting in a total of 70 code bytes). The symbol achieves level H error correction
+
+The general structure of a QR encoding is as a sequence of 4 bit indicators with payload length dependent on the indicator mode (e.g. byte encoding payload length is dependent on the first byte).
