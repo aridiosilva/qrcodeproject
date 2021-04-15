@@ -185,3 +185,5 @@ After every indicator that selects an encoding mode is a length field that tells
   This has the exception that the last character in an alphanumeric string with an odd length is read as a 6-bit value instead.
 
   ![](https://github.com/aridiosilva/qrcodeproject/blob/main/img/generic_structure_qr_code_alphanumeric_char_codes.jpg)
+
+
