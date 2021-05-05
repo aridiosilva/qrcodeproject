@@ -74,7 +74,6 @@ A way of measuring the size of a symbol, from 1 to 40. Version 1 has 21×21 modu
 
 Indicates the revision of the QR Code standard. (The word model here corresponds with the conventional meaning of the word version.) Model 1 QR codes are outdated and essentially never seen. Model 2 QR codes are widespread and dominant. Model 2 also has an extension called Micro QR codes (not implemented in my library). Note that model 1 defines versions 1 through 14, whereas model 2 QR defines versions 1 through 40, allowing much more data capacity.
 
-
 ## Standards
 
 There are several standards that cover the encoding of data as QR codes:
