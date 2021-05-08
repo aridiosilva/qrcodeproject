@@ -173,7 +173,7 @@ Encoding modes can be mixed as needed within a QR symbol. (e.g., a url with a lo
 
 After every indicator that selects an encoding mode is a length field that tells how many characters are encoded in that mode. The number of bits in the length field depends on the encoding and the symbol version.
 
-![](https://github.com/aridiosilva/qrcodeproject/blob/main/img
+![](https://github.com/aridiosilva/qrcodeproject/blob/main/img)
 
   Alphanumeric encoding mode stores a message more compactly than the byte mode can, but cannot store lower-case letters and has only a limited selection of punctuation marks, which are sufficient for rudimentary web addresses. Two characters are coded in an 11-bit value by this formula:
 
